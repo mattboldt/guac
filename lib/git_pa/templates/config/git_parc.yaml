@@ -1,0 +1,4 @@
+---
+:repos:
+:branch_aliases:
+:pull_strategy: git pull --rebase --prune
