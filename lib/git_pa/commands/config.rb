@@ -3,7 +3,7 @@
 require_relative '../command'
 require_relative '../config'
 require 'yaml'
-require 'rainbow'
+require 'colorize'
 
 module GitPa
   module Commands
@@ -24,7 +24,7 @@ module GitPa
         file.puts(body.to_yaml)
         file.close
 
-        output.puts 'Config saved in ~/.git_parc'.green
+        output.puts 'Config saved in ~/.git_parc'.colorize(:green)
       end
     end
   end

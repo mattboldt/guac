@@ -7,4 +7,4 @@ gemspec
 
 gem 'tty'
 gem 'pry'
-gem 'rainbow'
+gem 'colorize'

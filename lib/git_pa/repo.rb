@@ -6,11 +6,15 @@ module GitPa
     end
 
     def name
+      @repo.split('/').last
+    end
+
+    def dir
       @repo
     end
 
     def branch_alias(branch)
-      branch_alias = @aliases.find { |a| a['name'] == @repo }
+      branch_alias = @aliases.find { |a| a['name'] == name }
       if branch_alias
         branches = branch_alias['branches']
         branches[0] == branch ? branches[1] : branch
