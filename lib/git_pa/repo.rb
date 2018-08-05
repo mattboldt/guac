@@ -14,10 +14,10 @@ module GitPa
     end
 
     def branch_alias(branch)
-      branch_alias = @aliases.find { |a| a['name'] == name }
-      if branch_alias
-        branches = branch_alias['branches']
-        branches[0] == branch ? branches[1] : branch
+      branch_config = @aliases.find { |a| a['name'] == name }
+      if branch_config
+        branch_alias = branch_config[branch]
+        branch_alias || branch
       else
         branch
       end
