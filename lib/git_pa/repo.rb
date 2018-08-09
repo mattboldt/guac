@@ -14,8 +14,7 @@ module GitPa
     end
 
     def branch_alias(branch)
-      branch_config = @aliases.find { |a| a['name'] == name }
-      if branch_config
+      if @aliases && (branch_config = @aliases.find { |a| a['name'] == name })
         branch_alias = branch_config[branch]
         branch_alias || branch
       else

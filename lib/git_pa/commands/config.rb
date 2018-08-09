@@ -47,18 +47,22 @@ Use an alias to keep all 3 in sync.
         result = prompt.yes?('Would you like to configure aliases?')
         return unless result
 
+        aliases = []
+
         body[:repos].each do |repo|
           repo_name = repo.split('/').last
           result = prompt.ask("Alias for `#{repo_name}`:")
           next unless result && !result.strip.empty?
 
           branch_pairs = result.split(/ \s*/)
-          body[:branch_aliases] << { name: repo_name }.tap do |obj|
+          aliases << { name: repo_name }.tap do |obj|
             branch_pairs.each do |pair|
               branches = pair.split(':')
               obj[branches[0]] = branches[1]
             end
           end
+
+          body[:branch_aliases] = aliases
         end
       end
 

@@ -18,6 +18,18 @@ module GitPa
     end
     map %w(--version -v) => :version
 
+    desc 'status', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
+    def status(*)
+      if options[:help]
+        invoke :help, ['status']
+      else
+        require_relative 'commands/status'
+        GitPa::Commands::Status.new(options).execute
+      end
+    end
+
     desc 'up', 'Command description...'
     method_option :help, aliases: '-h', type: :boolean,
                          desc: 'Display usage information'

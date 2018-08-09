@@ -1,4 +1,5 @@
 require 'yaml'
+require 'colorize'
 
 module GitPa
   class Config
@@ -7,6 +8,13 @@ module GitPa
 
     def self.load
       @config ||= YAML.load(File.read(CONFIG_FILE)) if File.exist?(CONFIG_FILE)
+
+      if @config.nil?
+        puts "ERROR: Please run config".colorize(:red)
+        raise
+      end
+
+      @config
     end
 
     def self.defaults
