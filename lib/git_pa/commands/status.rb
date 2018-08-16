@@ -3,7 +3,6 @@
 require_relative '../command'
 require_relative '../config'
 require_relative '../repo'
-require_relative '../git'
 require_relative '../colors'
 
 module GitPa
@@ -16,20 +15,15 @@ module GitPa
       end
 
       def execute(input: $stdin, output: $stdout)
-        response = []
         @repos.each do |repo|
-          local_res = []
-          git = Git.new(repo)
-          response << repo.name.bold.colorize(:blue)
-          local_res << git.status
+          output.puts repo.name.bold.colorize(:blue)
 
-          color, local_res = Colors.paint(local_res)
-          response << local_res
+          response = [repo.status]
+
+          color, response = Colors.paint(response)
+          output.puts response.join("\n")
           break if color == :red
         end
-
-        output.puts "\n"
-        output.puts response.flatten.join("\n")
       end
     end
   end
