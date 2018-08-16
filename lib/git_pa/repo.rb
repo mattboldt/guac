@@ -1,21 +1,21 @@
 module GitPa
   class Repo
     def initialize(config, repo)
-      @aliases = config[:branch_aliases]
+      @aliases = repo[:branch_aliases]
       @repo = repo
     end
 
     def name
-      @repo.split('/').last
+      @repo[:name]
     end
 
     def dir
-      @repo
+      @repo[:dir]
     end
 
     def branch_alias(branch)
-      if @aliases && (branch_config = @aliases.find { |a| a['name'] == name })
-        branch_alias = branch_config[branch]
+      if @aliases
+        branch_alias = @aliases[branch]
         branch_alias || branch
       else
         branch

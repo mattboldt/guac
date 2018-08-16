@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'thor'
+require 'pry'
 
 module GitPa
   # Handle the application command line parsing
@@ -33,6 +34,9 @@ module GitPa
     desc 'up', 'Command description...'
     method_option :help, aliases: '-h', type: :boolean,
                          desc: 'Display usage information'
+
+    method_option :branch, aliases: '-b', type: :string,
+                           desc: 'Branch name'
     def up(*)
       if options[:help]
         invoke :help, ['up']

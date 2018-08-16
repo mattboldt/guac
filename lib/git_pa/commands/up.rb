@@ -6,6 +6,7 @@ require_relative '../repo'
 require_relative '../git'
 require_relative '../colors'
 require 'tty-progressbar'
+require 'pry'
 
 module GitPa
   module Commands
@@ -13,11 +14,13 @@ module GitPa
       def initialize(options)
         @options = options
         @config = GitPa::Config.load
-        @repos = @config[:repos].map { |r| GitPa::Repo.new(@config, r) }
+        @repos = @config[:repos].map do |r|
+          GitPa::Repo.new(@config, r)
+        end
       end
 
       def execute(input: $stdin, output: $stdout)
-        branch = ARGV[1] || 'master'
+        branch = @options[:branch] || 'master'
 
         @repos.each do |repo|
           git = Git.new(repo, branch)
@@ -26,6 +29,8 @@ module GitPa
           response = []
           response << git.checkout
           response << git.pull
+          response.compact!
+
           color, response = Colors.paint(response)
 
           output.puts response.join("\n")

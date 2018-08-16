@@ -18,7 +18,7 @@ class Colors
     end
 
     def contains?(ary, string)
-      ary.any? { |r| r.include?(string) }
+      ary.compact.any? { |r| r.include?(string) }
     end
   end
 end

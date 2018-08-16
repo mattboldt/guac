@@ -33,7 +33,12 @@ module GitPa
 
       def prompt_repos(body)
         result = prompt.ask('Git repo directories (separated by spaces):', required: true)
-        body[:repos] = result.split(/ \s*/)
+        body[:repos] = result.split(/ \s*/).map do |r|
+          {
+            dir: r,
+            name: r.split('/').last,
+          }
+        end
       end
 
       def prompt_branch_aliases(body, output)
@@ -47,22 +52,17 @@ Use an alias to keep all 3 in sync.
         result = prompt.yes?('Would you like to configure aliases?')
         return unless result
 
-        aliases = []
-
         body[:repos].each do |repo|
-          repo_name = repo.split('/').last
-          result = prompt.ask("Alias for `#{repo_name}`:")
+          result = prompt.ask("Alias for `#{repo[:name]}`:")
           next unless result && !result.strip.empty?
 
           branch_pairs = result.split(/ \s*/)
-          aliases << { name: repo_name }.tap do |obj|
+          repo[:branch_aliases] = {}.tap do |obj|
             branch_pairs.each do |pair|
               branches = pair.split(':')
               obj[branches[0]] = branches[1]
             end
           end
-
-          body[:branch_aliases] = aliases
         end
       end
 
