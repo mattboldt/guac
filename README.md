@@ -1,6 +1,8 @@
 # Guac
 
-Guac is a command-line program to manage multiple local git repos with one command. `Guac` is the working title of a the gem.
+Guac is a command line program to manage multiple local git repos with one command. Guac stands for `git update cli`, but it's also just a very easy to type command. Furthermore, it's shorthand for Guacamole, e.g.: "Holy Guacamole, this gem makes updating all my repos very fast and easy".
+
+Guac written in Ruby, so you'll need to have that installed on your machine, but the functionality itself is language agnostic.
 
 ## Installation
 
