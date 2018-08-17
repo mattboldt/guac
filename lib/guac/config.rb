@@ -6,11 +6,11 @@ module Guac
     CONFIG_FILE = File.join(ENV['HOME'], '.guacrc').freeze
     DEFAULTS_FILE = File.join(File.dirname(__FILE__), 'templates/config/guacrc.yaml').freeze
 
-    def self.load
+    def self.load(raise_error: true)
       @config ||= YAML.load(File.read(CONFIG_FILE)) if File.exist?(CONFIG_FILE)
 
-      if @config.nil?
-        puts "ERROR: Please run config".colorize(:red)
+      if @config.nil? && raise_error
+        puts 'ERROR: Please run config'.colorize(:red)
         raise
       end
 

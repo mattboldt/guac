@@ -12,7 +12,7 @@ module Guac
 
       def initialize(options)
         @options = options
-        @config = Guac::Config.load
+        @config = Guac::Config.load(raise_error: false)
         @defaults = Guac::Config.defaults
       end
 
