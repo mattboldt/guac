@@ -3,7 +3,7 @@
 require 'thor'
 # require 'pry'
 
-module GitPa
+module Guac
   # Handle the application command line parsing
   # and the dispatch to various command objects
   #
@@ -12,10 +12,10 @@ module GitPa
     # Error raised by this runner
     Error = Class.new(StandardError)
 
-    desc 'version', 'git_pa version'
+    desc 'version', 'guac version'
     def version
       require_relative 'version'
-      puts "v#{GitPa::VERSION}"
+      puts "v#{Guac::VERSION}"
     end
     map %w(--version -v) => :version
 
@@ -26,7 +26,7 @@ module GitPa
         invoke :help, ['config']
       else
         require_relative 'commands/config'
-        GitPa::Commands::Config.new(options).execute
+        Guac::Commands::Config.new(options).execute
       end
     end
 
@@ -37,7 +37,7 @@ module GitPa
         invoke :help, ['status']
       else
         require_relative 'commands/status'
-        GitPa::Commands::Status.new(options).execute
+        Guac::Commands::Status.new(options).execute
       end
     end
 
@@ -49,7 +49,7 @@ module GitPa
         invoke :help, ['up']
       else
         require_relative 'commands/up'
-        GitPa::Commands::Up.new(options).execute
+        Guac::Commands::Up.new(options).execute
       end
     end
   end

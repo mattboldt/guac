@@ -6,17 +6,17 @@ require 'yaml'
 require 'colorize'
 require 'pry'
 
-module GitPa
+module Guac
   module Commands
-    class Config < GitPa::Command
+    class Config < Guac::Command
 
       def initialize(options)
         @options = options
-        @config = GitPa::Config.load
-        @defaults = GitPa::Config.defaults
+        @config = Guac::Config.load
+        @defaults = Guac::Config.defaults
       end
 
-      def execute(input: $stdin, output: $stdout)
+      def execute(_input: $stdin, output: $stdout)
         body = @defaults
         body.merge!(@config) unless @config.nil?
 
@@ -26,7 +26,7 @@ module GitPa
         prompt_pull_strategy(body)
 
         save_config(body)
-        output.puts 'Config saved in ~/.git_parc'.colorize(:green)
+        output.puts 'Config saved in ~/.guacrc'.colorize(:green)
       end
 
       private
@@ -76,7 +76,7 @@ Use an alias to keep all 3 in sync.
       end
 
       def save_config(body)
-        file = File.new(GitPa::Config::CONFIG_FILE, 'w')
+        file = File.new(Guac::Config::CONFIG_FILE, 'w')
         file.puts(body.to_yaml)
         file.close
       end

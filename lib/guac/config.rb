@@ -1,10 +1,10 @@
 require 'yaml'
 require 'colorize'
 
-module GitPa
+module Guac
   class Config
-    CONFIG_FILE = File.join(ENV['HOME'], '.git_parc').freeze
-    DEFAULTS_FILE = File.join(File.dirname(__FILE__), 'templates/config/git_parc.yaml').freeze
+    CONFIG_FILE = File.join(ENV['HOME'], '.guacrc').freeze
+    DEFAULTS_FILE = File.join(File.dirname(__FILE__), 'templates/config/guacrc.yaml').freeze
 
     def self.load
       @config ||= YAML.load(File.read(CONFIG_FILE)) if File.exist?(CONFIG_FILE)

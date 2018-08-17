@@ -1,18 +1,18 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "git_pa/version"
+require "guac/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "git_pa"
+  spec.name          = "guac"
   spec.license       = "MIT"
-  spec.version       = GitPa::VERSION
+  spec.version       = Guac::VERSION
   spec.authors       = ['Matt Boldt']
   spec.email         = ['me@mattboldt.com']
 
   spec.summary       = 'Git your gits'
   spec.description   = 'Git your gits git'
-  spec.homepage      = 'https://github.com/mattboldt/git_pa'
+  spec.homepage      = 'https://github.com/mattboldt/guac'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

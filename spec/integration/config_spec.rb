@@ -1,9 +1,9 @@
-RSpec.describe "`git_pa config` command", type: :cli do
-  it "executes `git_pa help config` command successfully" do
-    output = `git_pa help config`
+RSpec.describe "`guac config` command", type: :cli do
+  it "executes `guac help config` command successfully" do
+    output = `guac help config`
     expected_output = <<-OUT
 Usage:
-  git_pa config
+  guac config
 
 Options:
   -h, [--help], [--no-help]  # Display usage information

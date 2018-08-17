@@ -2,7 +2,7 @@
 
 require 'forwardable'
 
-module GitPa
+module Guac
   class Command
     extend Forwardable
 

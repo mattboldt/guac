@@ -1,10 +1,10 @@
-require 'git_pa/commands/status'
+require 'guac/commands/status'
 
-RSpec.describe GitPa::Commands::Status do
+RSpec.describe Guac::Commands::Status do
   it "executes `status` command successfully" do
     output = StringIO.new
     options = {}
-    command = GitPa::Commands::Status.new(options)
+    command = Guac::Commands::Status.new(options)
 
     command.execute(output: output)
 

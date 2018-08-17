@@ -4,23 +4,30 @@ require_relative '../command'
 require_relative '../config'
 require_relative '../repo'
 require_relative '../colors'
+# require 'pry'
 
-module GitPa
+module Guac
   module Commands
-    class Status < GitPa::Command
+    class Up < Guac::Command
       def initialize(options)
         @options = options
-        @config = GitPa::Config.load
-        @repos = @config[:repos].map { |r| GitPa::Repo.new(@config, r) }
+        @config = Guac::Config.load
+        @repos = @config[:repos].map do |repo|
+          Guac::Repo.new(@config, repo, @options[:branch])
+        end
       end
 
       def execute(input: $stdin, output: $stdout)
         @repos.each do |repo|
-          output.puts repo.name.bold.colorize(:blue)
+          output.puts "Updating #{repo.name.bold} on branch #{repo.branch.underline}".colorize(:blue)
 
-          response = [repo.status]
+          response = []
+          response << repo.checkout
+          response << repo.pull
+          response.compact!
 
           color, response = Colors.paint(response)
+
           output.puts response.join("\n")
           break if color == :red
         end

@@ -1,22 +1,22 @@
-# GitPa
+# Guac
 
-GitPa is a command-line program to manage multiple local git repos with one command. `GitPa` is the working title of a the gem.
+Guac is a command-line program to manage multiple local git repos with one command. `Guac` is the working title of a the gem.
 
 ## Installation
 
-    $ gem install git_pa
+    $ gem install guac
 
 ## Usage
 
 ```bash
 # Run setup
-git_pa config
+guac config
 
 # Show status
-git_pa status
+guac status
 
 # Update all on master
-git_pa up -b master
+guac up -b master
 ```
 
 ## Development
@@ -27,11 +27,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/mattboldt/git_pa. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/mattboldt/guac. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
-Everyone interacting in the GitPa project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/mattboldt/git_pa/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Guac project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/mattboldt/guac/blob/master/CODE_OF_CONDUCT.md).
 
 ## Copyright
 

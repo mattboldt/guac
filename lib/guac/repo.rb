@@ -2,7 +2,7 @@
 
 require_relative 'sys_command'
 
-module GitPa
+module Guac
   class Repo
     attr_reader :name, :dir
 

@@ -1,10 +1,10 @@
-require 'git_pa/commands/config'
+require 'guac/commands/config'
 
-RSpec.describe GitPa::Commands::Config do
+RSpec.describe Guac::Commands::Config do
   it "executes `config` command successfully" do
     output = StringIO.new
     options = {}
-    command = GitPa::Commands::Config.new(options)
+    command = Guac::Commands::Config.new(options)
 
     command.execute(output: output)
 

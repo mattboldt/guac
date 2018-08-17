@@ -1,9 +1,9 @@
-RSpec.describe "`git_pa status` command", type: :cli do
-  it "executes `git_pa help status` command successfully" do
-    output = `git_pa help status`
+RSpec.describe "`guac status` command", type: :cli do
+  it "executes `guac help status` command successfully" do
+    output = `guac help status`
     expected_output = <<-OUT
 Usage:
-  git_pa status
+  guac status
 
 Options:
   -h, [--help], [--no-help]  # Display usage information

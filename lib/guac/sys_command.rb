@@ -2,7 +2,7 @@
 
 require 'open3'
 
-module GitPa
+module Guac
   class SysCommand
     class << self
       def run(dir, commands = [])
