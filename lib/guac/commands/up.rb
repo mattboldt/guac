@@ -5,7 +5,7 @@ require_relative '../config'
 require_relative '../repo'
 require_relative '../colors'
 require_relative '../sys_command'
-require 'pry'
+# require 'pry'
 
 module Guac
   module Commands

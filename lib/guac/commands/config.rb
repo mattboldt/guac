@@ -4,7 +4,7 @@ require_relative '../command'
 require_relative '../config'
 require 'yaml'
 require 'colorize'
-require 'pry'
+# require 'pry'
 
 module Guac
   module Commands
@@ -48,10 +48,7 @@ module Guac
 
       def prompt_branch_aliases(body, output)
         output.puts 'Git branch aliases:'.bold.colorize(:blue)
-        output.puts %{
-2 of your repos may use 'master', while the 3rd uses 'master_v2'.
-Use an alias to keep all 3 in sync. #{'Input format: `branch_name:branch_name_alias`'.colorize(:yellow)}
-        }
+        output.puts 'Input format: `branch_name:branch_name_alias`'
 
         result = prompt.yes?('Would you like to configure aliases?')
         return unless result
