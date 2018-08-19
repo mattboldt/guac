@@ -14,11 +14,11 @@ Guac is written in Ruby, so you'll need to have that installed on your machine, 
 # Run setup
 guac config
 
-# Show status
+# Show all statuses
 guac status
 
 # Update all on master
-guac up -b master
+guac up master
 ```
 
 ## Development
