@@ -14,7 +14,6 @@ module Guac
         stdout.close
         stderr.close
 
-
         if output.nil? && error
           raise SysCommandError, error
         end

@@ -6,7 +6,7 @@ class Colors
   class << self
     def paint(ary)
       color =
-        if contains?(ary, 'Updating')
+        if contains?(ary, 'Updating') || contains?(ary, 'Changes not staged for commit')
           :yellow
         elsif contains?(ary, 'Failed') || contains?(ary, 'error:')
           :red
