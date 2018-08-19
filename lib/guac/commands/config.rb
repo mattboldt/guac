@@ -21,9 +21,12 @@ module Guac
         body.merge!(@config) unless @config.nil?
 
         output.puts "============= \n\n\n"
-        prompt_repos(body)
+        prompt_repos(body, output)
+        output.puts "\n"
         prompt_branch_aliases(body, output)
         prompt_pull_strategy(body)
+        prompt_default_branch(body)
+        output.puts "\n"
 
         save_config(body)
         output.puts 'Config saved in ~/.guacrc'.colorize(:green)
@@ -31,9 +34,11 @@ module Guac
 
       private
 
-      def prompt_repos(body)
-        result = prompt.ask('Git repo directories (separated by spaces):', required: true)
-        body[:repos] = result.split(/ \s*/).map do |r|
+      def prompt_repos(body, output)
+        result = prompt.ask('Git Repos (separated by spaces):'.bold.colorize(:blue), required: true)
+
+        dirs = result.split(/ \s*/)
+        body[:repos] = dirs.map do |r|
           {
             dir: r,
             name: r.split('/').last,
@@ -42,19 +47,18 @@ module Guac
       end
 
       def prompt_branch_aliases(body, output)
-        output.puts(%{
-Git branch aliases
+        output.puts 'Git branch aliases:'.bold.colorize(:blue)
+        output.puts %{
 2 of your repos may use 'master', while the 3rd uses 'master_v2'.
-Use an alias to keep all 3 in sync.
-        })
-        output.puts 'Input format: `branch_name:branch_name_alias`'.colorize(:yellow)
+Use an alias to keep all 3 in sync. #{'Input format: `branch_name:branch_name_alias`'.colorize(:yellow)}
+        }
 
         result = prompt.yes?('Would you like to configure aliases?')
         return unless result
 
         body[:repos].each do |repo|
-          result = prompt.ask("Alias for `#{repo[:name]}`:")
-          next unless result && !result.strip.empty?
+          result = prompt.ask("Alias for `#{repo[:name].colorize(:blue)}`:")
+          next unless valid_result?(result)
 
           branch_pairs = result.split(/ \s*/)
           repo[:branch_aliases] = {}.tap do |obj|
@@ -67,12 +71,21 @@ Use an alias to keep all 3 in sync.
       end
 
       def prompt_pull_strategy(body)
-        result = prompt.ask(
-          "Pull strategy (leave empty for default: `#{@defaults[:pull_strategy]}`):"
-        )
-        if result && !result.strip.empty?
-          body[:pull_strategy] = pull_strategy
-        end
+        default = "(default: `#{@defaults[:pull_strategy]}`)".colorize(:blue)
+        result = prompt.ask("Pull strategy #{default}:")
+
+        body[:pull_strategy] = result if valid_result?(result)
+      end
+
+      def prompt_default_branch(body)
+        default = "(default: `#{@defaults[:default_branch]}`)".colorize(:blue)
+        result = prompt.ask("Default branch #{default}:")
+
+        body[:default_branch] = result if valid_result?(result)
+      end
+
+      def valid_result?(result)
+        result && !result.strip.empty?
       end
 
       def save_config(body)

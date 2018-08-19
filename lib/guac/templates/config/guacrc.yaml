@@ -1,3 +1,4 @@
 ---
 :repos:
 :pull_strategy: git pull --rebase --prune
+:default_branch: master

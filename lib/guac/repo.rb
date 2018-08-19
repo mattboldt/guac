@@ -11,7 +11,7 @@ module Guac
       @repo   = repo
       @name   = repo[:name]
       @dir    = repo[:dir]
-      @branch = branch || 'master'
+      @branch = branch || config[:default_branch]
     end
 
     def branch
