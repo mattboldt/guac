@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    guac (0.1.1)
+    guac (0.1.2)
       pastel (~> 0.7.2)
       thor (~> 0.20.0)
       tty-color (~> 0.4.2)
