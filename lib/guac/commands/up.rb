@@ -14,7 +14,7 @@ module Guac
         @options = options
         @config = Guac::Config.load
         @repos = @config[:repos].map do |repo|
-          Guac::Repo.new(@config, repo, @options[:branch])
+          Guac::Repo.new(@config, repo, ARGV[1])
         end
       end
 

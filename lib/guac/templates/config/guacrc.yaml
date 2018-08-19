@@ -1,4 +1,4 @@
 ---
 :repos:
-:pull_strategy: git pull --rebase --prune
+:pull_strategy: git pull --rebase --prune --autostash
 :default_branch: master
