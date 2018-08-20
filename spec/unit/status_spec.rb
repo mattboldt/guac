@@ -1,7 +1,7 @@
 require 'guac/commands/status'
 
 RSpec.describe Guac::Commands::Status do
-  it "executes `status` command successfully" do
+  xit "executes `status` command successfully" do
     output = StringIO.new
     options = {}
     command = Guac::Commands::Status.new(options)

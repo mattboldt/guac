@@ -1,7 +1,7 @@
 require 'guac/commands/config'
 
 RSpec.describe Guac::Commands::Config do
-  it "executes `config` command successfully" do
+  xit "executes `config` command successfully" do
     output = StringIO.new
     options = {}
     command = Guac::Commands::Config.new(options)

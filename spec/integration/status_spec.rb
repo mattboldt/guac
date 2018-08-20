@@ -1,5 +1,5 @@
 RSpec.describe "`guac status` command", type: :cli do
-  it "executes `guac help status` command successfully" do
+  xit "executes `guac help status` command successfully" do
     output = `guac help status`
     expected_output = <<-OUT
 Usage:
