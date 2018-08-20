@@ -1,9 +1,9 @@
+# Guac
+
 [![Build Status](https://travis-ci.org/mattboldt/guac.svg?branch=master)](https://travis-ci.org/mattboldt/guac)
 [![Code Climate](https://codeclimate.com/github/mattboldt/guac/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/guac)
 [![Gem Version](https://badge.fury.io/rb/guac.svg)](https://badge.fury.io/rb/guac)
 [![GitHub license](https://img.shields.io/github/license/mattboldt/guac.svg)](https://github.com/mattboldt/guac/blob/master/LICENSE.txt)
-
-# Guac
 
 Guac is a command line program to update multiple local git repos with one command. Guac stands for `git update cli`, but it's also just a very easy to type command. Furthermore, it's shorthand for Guacamole, e.g.: "Holy Guacamole, this gem makes updating all my repos very fast and easy".
 
