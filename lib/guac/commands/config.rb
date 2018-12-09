@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative '../command'
 require_relative '../config'
 require 'yaml'
 require 'colorize'
-# require 'pry'
+require 'pry'
 
 module Guac
   module Commands
-    class Config < Guac::Command
+    class Config
 
-      def initialize(options)
+      def initialize(options, thor)
         @options = options
         @config = Guac::Config.load(raise_error: false)
         @defaults = Guac::Config.defaults
+        @thor = thor
       end
 
       def execute(_input: $stdin, output: $stdout)
@@ -35,7 +35,7 @@ module Guac
       private
 
       def prompt_repos(body, output)
-        result = prompt.ask('Git Repos (separated by spaces):'.bold.colorize(:blue), required: true)
+        result = @thor.ask('Git Repos (separated by spaces):'.bold.colorize(:blue), required: true)
 
         dirs = result.split(/ \s*/)
         body[:repos] = dirs.map do |r|
@@ -50,11 +50,11 @@ module Guac
         output.puts 'Git branch aliases:'.bold.colorize(:blue)
         output.puts 'Input format: `branch_name:branch_name_alias`'
 
-        result = prompt.yes?('Would you like to configure aliases?')
+        result = @thor.yes?('Would you like to configure aliases? (y/n)')
         return unless result
 
         body[:repos].each do |repo|
-          result = prompt.ask("Alias for `#{repo[:name].colorize(:blue)}`:")
+          result = @thor.ask("Alias for `#{repo[:name].colorize(:blue)}`:")
           next unless valid_result?(result)
 
           branch_pairs = result.split(/ \s*/)
@@ -69,14 +69,14 @@ module Guac
 
       def prompt_pull_strategy(body)
         default = "(default: `#{@defaults[:pull_strategy]}`)".colorize(:blue)
-        result = prompt.ask("Pull strategy #{default}:")
+        result = @thor.ask("Pull strategy #{default}:")
 
         body[:pull_strategy] = result if valid_result?(result)
       end
 
       def prompt_default_branch(body)
         default = "(default: `#{@defaults[:default_branch]}`)".colorize(:blue)
-        result = prompt.ask("Default branch #{default}:")
+        result = @thor.ask("Default branch #{default}:")
 
         body[:default_branch] = result if valid_result?(result)
       end

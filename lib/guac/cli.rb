@@ -26,7 +26,7 @@ module Guac
         invoke :help, ['config']
       else
         require_relative 'commands/config'
-        Guac::Commands::Config.new(options).execute
+        Guac::Commands::Config.new(options, self).execute
       end
     end
 
@@ -40,6 +40,8 @@ module Guac
         Guac::Commands::Status.new(options).execute
       end
     end
+
+    map 'st' => 'status'
 
     desc 'up', 'Pull latest for all repos'
     method_option :help, aliases: '-h', type: :boolean, desc: 'Display usage information'

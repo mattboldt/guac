@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../command'
 require_relative '../config'
 require_relative '../repo'
 require_relative '../colors'
 
 module Guac
   module Commands
-    class Status < Guac::Command
+    class Status
       def initialize(options)
         @options = options
         @config = Guac::Config.load
