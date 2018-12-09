@@ -3,7 +3,7 @@
 require_relative '../config'
 require 'yaml'
 require 'colorize'
-require 'pry'
+# require 'pry'
 
 module Guac
   module Commands
