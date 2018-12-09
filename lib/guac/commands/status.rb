@@ -14,15 +14,17 @@ module Guac
       end
 
       def execute(input: $stdin, output: $stdout)
-        @repos.each do |repo|
-          output.puts repo.name.bold.colorize(:blue)
+        threads = @repos.map do |repo|
+          Thread.new do
+            response = [repo.status]
+            response = Colors.paint(response)
+            response.unshift(repo.name.bold.colorize(:blue))
 
-          response = [repo.status]
-
-          color, response = Colors.paint(response)
-          output.puts response.join("\n")
-          break if color == :red
+            response.join("\n")
+          end
         end
+
+        puts threads.map(&:value)
       end
     end
   end

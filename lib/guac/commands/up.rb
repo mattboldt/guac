@@ -17,24 +17,30 @@ module Guac
         end
       end
 
-      def execute(input: $stdin, output: $stdout)
-        @repos.each do |repo|
-          output.puts "Updating #{repo.name.bold} on branch #{repo.branch.underline}".colorize(:blue)
-          response = []
+      def execute
+        threads = @repos.map do |repo|
+          puts "Updating #{repo.name.bold} on branch #{repo.branch.underline}".colorize(:blue)
 
-          begin
-            repo.checkout
-            response << repo.pull
-          rescue Guac::SysCommandError => e
-            output.puts e.message.colorize(:red)
-            break
+          Thread.new do
+            response = []
+
+            begin
+              repo.checkout
+              response << repo.pull
+            rescue Guac::SysCommandError => e
+              response << e.message.colorize(:red)
+              break
+            end
+
+            response.compact!
+            response = Colors.paint(response)
+            response.unshift(repo.name.bold.colorize(:blue))
+            response.join("\n")
           end
-
-          response.compact!
-          color, response = Colors.paint(response)
-          output.puts response.join("\n")
-          break if color == :red
         end
+
+        puts '========'
+        puts threads.map(&:value)
       end
     end
   end

@@ -16,7 +16,7 @@ class Colors
           :green
         end
 
-      [color, ary.map { |r| r.colorize(color) }]
+      ary.map { |r| r.colorize(color) }
     end
 
     def contains?(ary, string)
