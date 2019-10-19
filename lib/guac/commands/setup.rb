@@ -33,9 +33,9 @@ module Guac
           @output.puts "\n"
         end
 
-        save_config
+        Guac::Config.save_configs(@body)
         @output.puts "🥑 Config saved in ~/.guacrc 🥑\n".bold.green
-        @output.puts Guac::Config.config.to_yaml
+        @output.puts Guac::Config.configs.to_yaml
       end
 
       private
@@ -87,12 +87,6 @@ module Guac
 
       def valid_result?(result)
         result && !result.strip.empty?
-      end
-
-      def save_config
-        file = File.new(Guac::Config::CONFIG_FILE, 'w')
-        file.puts(@body.to_yaml)
-        file.close
       end
 
       def parse_branch_aliases(result)

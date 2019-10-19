@@ -4,7 +4,7 @@ require 'colorize'
 module Guac
   class Config
     CONFIG_FILE     = File.join(ENV['HOME'], '.guacrc').freeze
-    DEFAULTS_FILE   = File.join(File.dirname(__FILE__), 'templates/config/guacrc.yml').freeze
+    DEFAULTS_FILE   = File.join(__dir__, 'templates/config/guacrc.yml').freeze
     REQUIRED_FIELDS = %i(repos pull_strategy default_branch).freeze
     OH_NO_YOU_DONTS = %w(push merge rebase commit clone init mv rm reset).freeze
 
@@ -45,6 +45,12 @@ module Guac
         else
           @configs ||= parse(CONFIG_FILE)
         end
+      end
+
+      def save_configs(body)
+        file = File.new(CONFIG_FILE, 'w')
+        file.puts(body.to_yaml)
+        file.close
       end
 
       private
