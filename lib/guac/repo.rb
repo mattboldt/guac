@@ -32,11 +32,15 @@ module Guac
     end
 
     def pull
-      pull_cmd =
-        @config[:pull_strategy] ? @config[:pull_strategy] : @defaults[:pull_strategy]
-      pull_cmd = pull_cmd.split(/ \s*/)
-
+      pull_cmd = @config[:pull_strategy].split(/ \s*/)
       SysCommand.run(@dir, pull_cmd)
+    end
+
+    def self.valid?(dirs)
+      dirs.all? do |dir|
+        d = File.join(dir.sub('~', ENV['HOME']), '.git')
+        Dir.exist?(d)
+      end
     end
   end
 end

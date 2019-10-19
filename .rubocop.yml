@@ -1,6 +1,5 @@
 # This is the configuration used to check the rubocop source code.
 
-inherit_from: .rubocop_todo.yml
 require:
   - rubocop/cop/internal_affairs
   - rubocop-rspec
@@ -21,7 +20,7 @@ Naming/PredicateName:
     - def_node_search
 
 Style/FrozenStringLiteralComment:
-  EnforcedStyle: when_needed
+  Enabled: false
 
 Style/FormatStringToken:
   # Because we parse a lot of source codes from strings. Percent arrays
@@ -32,7 +31,76 @@ Style/FormatStringToken:
 Style/IpAddresses:
   # The test for this cop includes strings that would cause offenses
   Exclude:
-  - spec/rubocop/cop/style/ip_addresses_spec.rb
+    - spec/rubocop/cop/style/ip_addresses_spec.rb
+
+# Checks if uses of quotes match the configured preference.
+Style/StringLiterals:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '()'
+
+# Don't complain about top-level class documentation comments.
+Documentation:
+  Enabled: false
+
+# Don't complain about long block lengths.
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  CountComments: false # count full line comments?
+  Max: 150
+
+Metrics/LineLength:
+  Max: 105
+  IgnoredPatterns:
+    - '(\A|\s)#' # Don't get upset at comments longer than the line length.
+    - 'authorize %' # Exclude Pundit authorization calls
+    - 'belongs_to :'
+    - 'has_many :'
+    - 'has_and_belongs_to_many :'
+    - 'has_one :'
+
+Metrics/ModuleLength:
+  CountComments: false # count full line comments?
+  Max: 150
+
+Style/AndOr:
+  # Whether `and` and `or` are banned only in conditionals (conditionals)
+  # or completely (always).
+  EnforcedStyle: always
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Style/GuardClause:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
 
 Layout/EndOfLine:
   EnforcedStyle: lf
@@ -45,13 +113,13 @@ Layout/ClassStructure:
       - prepend
       - extend
   ExpectedOrder:
-      - module_inclusion
-      - constants
-      - public_class_methods
-      - initializer
-      - instance_methods
-      - protected_methods
-      - private_methods
+    - module_inclusion
+    - constants
+    - public_class_methods
+    - initializer
+    - instance_methods
+    - protected_methods
+    - private_methods
 
 Layout/IndentHeredoc:
   EnforcedStyle: powerpack
@@ -85,10 +153,6 @@ Metrics/BlockLength:
 Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*.rb'
-
-Performance/Caller:
-  Exclude:
-    - spec/rubocop/cop/performance/caller_spec.rb
 
 RSpec/PredicateMatcher:
   EnforcedStyle: explicit

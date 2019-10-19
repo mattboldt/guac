@@ -1,5 +1,7 @@
 require "guac/version"
 
 module Guac
-  # Your code goes here...
+  def self.debug?
+    !ENV['DEBUG'].nil?
+  end
 end
