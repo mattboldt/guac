@@ -16,17 +16,17 @@ module Guac
 
       def initialize(options, thor)
         @options = options
-        @config = Guac::Config.load(raise_error: false)
+        @config = Guac::Config.configs
         @defaults = Guac::Config.defaults
         @thor = thor
       end
 
       def execute(_input: $stdin, output: $stdout)
         @output = output
+        @output.puts "\n🥑 Welcome to the tableside Guac builder 🥑\n".green
+
         @body = @defaults.dup
         @body.merge!(@config) unless @config.nil?
-
-        @output.puts "🥑 Welcome to the tableside Guac builder 🥑\n".green
 
         PROMPT_QUEUE.each do |prompt|
           send(prompt)
@@ -35,6 +35,7 @@ module Guac
 
         save_config
         @output.puts "🥑 Config saved in ~/.guacrc 🥑\n".bold.green
+        @output.puts Guac::Config.config.to_yaml
       end
 
       private
@@ -69,16 +70,17 @@ module Guac
       end
 
       def prompt_pull_strategy
-        @output.puts 'Pull strategy:'.bold.blue
+        @output.puts 'Pull strategy'.bold.blue
         @output.puts "Default: `#{@defaults[:pull_strategy].bold}`"
-        result = @thor.ask('Enter strategy or press return for default'.bold)
+        result = @thor.ask('Enter strategy or press return for default:'.bold)
 
         @body[:pull_strategy] = result if valid_result?(result)
       end
 
       def prompt_default_branch
-        default = "(default: `#{@defaults[:default_branch]}`)".colorize(:blue)
-        result = @thor.ask("Default branch #{default}:")
+        @output.puts "Default branch".bold.blue
+        @output.puts "Default: `#{@defaults[:default_branch].bold}`"
+        result = @thor.ask('Enter branch or press return for default:'.bold)
 
         @body[:default_branch] = result if valid_result?(result)
       end
@@ -89,7 +91,7 @@ module Guac
 
       def save_config
         file = File.new(Guac::Config::CONFIG_FILE, 'w')
-        file.puts(@body.to_json)
+        file.puts(@body.to_yaml)
         file.close
       end
 

@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-require_relative '../config'
 require_relative '../repo'
 require_relative '../colors'
 
@@ -9,11 +6,10 @@ module Guac
     class Status
       def initialize(options)
         @options = options
-        @config = Guac::Config.load
-        @repos = @config[:repos].map { |r| Guac::Repo.new(@config, r) }
+        @repos = Guac::Repo.build_from_config
       end
 
-      def execute(input: $stdin, output: $stdout)
+      def execute(_input: $stdin, output: $stdout)
         threads = @repos.map do |repo|
           Thread.new do
             response = [repo.status]
@@ -24,7 +20,7 @@ module Guac
           end
         end
 
-        puts threads.map(&:value)
+        output.puts threads.map(&:value)
       end
     end
   end

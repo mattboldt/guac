@@ -1,10 +1,14 @@
-# frozen_string_literal: true
-
 require_relative 'sys_command'
+require_relative 'config'
 
 module Guac
   class Repo
     attr_reader :name, :dir
+
+    def self.build_from_config(*args)
+      config = Guac::Config.load
+      config[:repos].map { |r| new(config, r, *args) }
+    end
 
     def initialize(config, repo, branch = nil)
       @config = config
@@ -37,7 +41,7 @@ module Guac
     end
 
     def self.valid?(dirs)
-      dirs.all? do |dir|
+      !dirs.empty? && dirs.all? do |dir|
         d = File.join(dir.sub('~', ENV['HOME']), '.git')
         Dir.exist?(d)
       end
