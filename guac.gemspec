@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Matt Boldt']
   spec.email         = ['me@mattboldt.com']
 
-  spec.summary       = 'Git your gits'
-  spec.description   = 'Git your gits git'
+  spec.summary       = 'Manage multiple git repos at once from the command line'
+  spec.description   = 'Git update all CLI'
   spec.homepage      = 'https://github.com/mattboldt/guac'
   spec.license       = 'MIT'
 
@@ -34,7 +34,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.post_install_message = %(
-    🥑🥑🥑 Thanks for installing 🥑🥑🥑 \n Please run `guac config`
+    🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑
+    🥑                              🥑
+    🥑    Thanks for installing     🥑
+    🥑    Please run `guac setup`   🥑
+    🥑                              🥑
+    🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑
   )
 
   spec.add_dependency 'colorize', '0.8.1'
