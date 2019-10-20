@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 cd ../sample_repos/ruby-progressbar
-git reset --hard 141e71dfbbe76a98adf73746929f38743e62fd53
+git reset --hard b1c1b7bbee91dd81034b50c9235027b226c38bfb
 cd ../tty-progressbar
-git reset --hard 223bfcda8e3c8826c4c25e119782dee42732719b
+git reset --hard f3be90b0f0c521782b08c3399b550565b295b4b7
