@@ -1,11 +1,11 @@
-# Guac
+# Guac 🥑
 
 [![Build Status](https://travis-ci.org/mattboldt/guac.svg?branch=master)](https://travis-ci.org/mattboldt/guac)
 [![Code Climate](https://codeclimate.com/github/mattboldt/guac/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/guac)
 [![Gem Version](https://badge.fury.io/rb/guac.svg)](https://badge.fury.io/rb/guac)
 [![GitHub license](https://img.shields.io/github/license/mattboldt/guac.svg)](https://github.com/mattboldt/guac/blob/master/LICENSE.txt)
 
-Guac is a command line program to update multiple local git repos with one command. Guac stands for `git update cli`, but it's also just a very easy to type command. Furthermore, it's shorthand for Guacamole, e.g.: "Holy Guacamole, this gem makes updating all my repos very fast and easy".
+Guac is a command line program to update multiple local git repos with one command. Guac stands for `git update-all cli`, but it's also just a very easy to type command. Furthermore, it's shorthand for Guacamole, e.g.: "Holy Guacamole, this gem makes updating all my repos very fast and easy".
 
 ![Guac](./assets/demo.gif)
 
@@ -19,13 +19,16 @@ Guac is written in Ruby, so you'll need to have that installed on your machine, 
 
 ```bash
 # Run setup
-guac config
+guac setup
 
 # Show all statuses
 guac status
+guac st
 
-# Update all on master
-guac up master
+# Update all on default branch (master)
+guac up
+# Update all on release_2019
+guac up release_2019
 ```
 
 ## Development
@@ -38,10 +41,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/mattboldt/guac. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-## Code of Conduct
-
-Everyone interacting in the Guac project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/mattboldt/guac/blob/master/CODE_OF_CONDUCT.md).
-
 ## Copyright
 
-Copyright (c) 2018 Matt Boldt. See [MIT License](LICENSE.txt) for further details.
+Copyright (c) 2019 Matt Boldt. See [MIT License](LICENSE.txt) for further details.

@@ -1,25 +1,18 @@
-# frozen_string_literal: true
-
-require_relative '../config'
 require_relative '../repo'
 require_relative '../colors'
 require_relative '../sys_command'
-# require 'pry'
 
 module Guac
   module Commands
     class Up
-      def initialize(options)
+      def initialize(options, args = [])
         @options = options
-        @config = Guac::Config.load
-        @repos = @config[:repos].map do |repo|
-          Guac::Repo.new(@config, repo, ARGV[1])
-        end
+        @repos = Guac::Repo.build_from_config(args[1])
       end
 
-      def execute
+      def execute(_input: $stdin, output: $stdout)
         threads = @repos.map do |repo|
-          puts "Updating #{repo.name.bold} on branch #{repo.branch.underline}".colorize(:blue)
+          output.puts "Updating #{repo.name.bold} on branch #{repo.branch.underline}".blue
 
           Thread.new do
             response = []
@@ -28,19 +21,19 @@ module Guac
               repo.checkout
               response << repo.pull
             rescue Guac::SysCommandError => e
-              response << e.message.colorize(:red)
-              break
+              response << repo.dir.bold.red
+              response << e.message.red
             end
 
             response.compact!
             response = Colors.paint(response)
-            response.unshift(repo.name.bold.colorize(:blue))
+            response.unshift(repo.name.bold.blue)
             response.join("\n")
           end
         end
 
-        puts '========'
-        puts threads.map(&:value)
+        output.puts "\n"
+        output.puts threads.map(&:value)
       end
     end
   end
